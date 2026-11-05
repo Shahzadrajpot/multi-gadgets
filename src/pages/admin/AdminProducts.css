@@ -1,0 +1,11 @@
+.pk-admin-page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-lg);
+}
+
+.pk-admin-page-header h1 {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+}

@@ -1,0 +1,13 @@
+-- Peshawari Khaas - Disable RLS (Development/Testing Mode)
+-- Run this if RLS policies are still blocking admin operations
+
+-- Disable RLS on all tables
+ALTER TABLE store_settings DISABLE ROW LEVEL SECURITY;
+ALTER TABLE admin_users DISABLE ROW LEVEL SECURITY;
+ALTER TABLE categories DISABLE ROW LEVEL SECURITY;
+ALTER TABLE products DISABLE ROW LEVEL SECURITY;
+ALTER TABLE product_images DISABLE ROW LEVEL SECURITY;
+ALTER TABLE product_sizes DISABLE ROW LEVEL SECURITY;
+ALTER TABLE global_discounts DISABLE ROW LEVEL SECURITY;
+ALTER TABLE orders DISABLE ROW LEVEL SECURITY;
+ALTER TABLE order_items DISABLE ROW LEVEL SECURITY;

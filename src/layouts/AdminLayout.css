@@ -1,0 +1,63 @@
+.pk-admin-layout {
+  min-height: 100vh;
+}
+
+.pk-admin-layout .ant-layout-sider {
+  background: var(--pk-white) !important;
+  box-shadow: 2px 0 8px rgba(13, 13, 13, 0.06);
+}
+
+.pk-admin-logo {
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1.125rem;
+  color: var(--pk-black);
+  border-bottom: 1px solid var(--pk-gray100);
+}
+
+.pk-admin-header {
+  background: var(--pk-white) !important;
+  padding: 0 var(--space-lg);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 1px 4px rgba(13, 13, 13, 0.08);
+}
+
+.pk-admin-trigger {
+  font-size: 20px;
+  padding: var(--space-sm);
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+}
+
+.pk-admin-trigger:hover {
+  background: var(--pk-sand-beige);
+}
+
+.pk-admin-user {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  cursor: pointer;
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-sm);
+}
+
+.pk-admin-user:hover {
+  background: var(--pk-sand-light);
+}
+
+.pk-admin-content {
+  margin: var(--space-lg);
+  padding: var(--space-lg);
+  background: var(--pk-white);
+  border-radius: var(--radius-lg);
+  min-height: calc(100vh - 64px - 48px);
+}

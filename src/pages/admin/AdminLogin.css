@@ -1,0 +1,25 @@
+.pk-admin-login {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--pk-sand-light);
+}
+
+.pk-admin-login-card {
+  width: 100%;
+  max-width: 400px;
+  border-radius: var(--radius-lg);
+}
+
+.pk-admin-login-card h1 {
+  font-family: var(--font-heading);
+  text-align: center;
+  margin-bottom: var(--space-xs);
+}
+
+.pk-admin-login-subtitle {
+  text-align: center;
+  color: var(--pk-gray500);
+  margin-bottom: var(--space-xl);
+}

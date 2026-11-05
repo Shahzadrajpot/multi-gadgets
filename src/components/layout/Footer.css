@@ -1,0 +1,114 @@
+.pk-footer {
+  background: var(--pk-black);
+  color: var(--pk-sand-beige);
+  margin-top: auto;
+}
+
+.pk-footer-main {
+  padding: var(--space-xxl) var(--space-md);
+}
+
+.pk-footer-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-xl);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+@media (min-width: 640px) {
+  .pk-footer-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .pk-footer-grid {
+    grid-template-columns: 2fr 1fr 1fr 1.5fr;
+  }
+}
+
+.pk-footer-logo {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--pk-white);
+  margin-bottom: var(--space-md);
+}
+
+.pk-footer-brand p {
+  color: var(--pk-sand-beige);
+  opacity: 0.9;
+  font-size: 14px;
+  line-height: 1.6;
+  margin-bottom: var(--space-md);
+}
+
+.pk-whatsapp-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-sm) var(--space-md);
+  background: #25D366;
+  color: white !important;
+  border-radius: var(--radius-sm);
+  font-weight: 500;
+  transition: all var(--transition-fast);
+}
+
+.pk-whatsapp-btn:hover {
+  background: #20bd5a;
+  transform: translateY(-1px);
+}
+
+.pk-footer-links h4,
+.pk-footer-newsletter h4 {
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: var(--space-md);
+  color: var(--pk-white);
+}
+
+.pk-footer-links a {
+  display: block;
+  color: var(--pk-sand-beige);
+  opacity: 0.9;
+  font-size: 14px;
+  padding: var(--space-xs) 0;
+  transition: opacity var(--transition-fast);
+}
+
+.pk-footer-links a:hover {
+  opacity: 1;
+  color: var(--pk-white);
+}
+
+.pk-footer-newsletter p {
+  color: var(--pk-sand-beige);
+  opacity: 0.9;
+  font-size: 14px;
+  margin-bottom: var(--space-md);
+}
+
+.pk-newsletter-form {
+  display: flex;
+  gap: var(--space-sm);
+}
+
+.pk-newsletter-form .ant-input {
+  flex: 1;
+}
+
+.pk-footer-bottom {
+  border-top: 1px solid rgba(232, 220, 196, 0.2);
+  padding: var(--space-md);
+}
+
+.pk-footer-bottom-inner p {
+  margin: 0;
+  font-size: 13px;
+  color: var(--pk-sand-beige);
+  opacity: 0.8;
+}

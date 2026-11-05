@@ -1,0 +1,114 @@
+.pk-checkout-page {
+  padding: var(--space-xl) 0;
+  min-height: 60vh;
+}
+
+.pk-checkout-layout {
+  display: grid;
+  grid-template-columns: 1fr 400px;
+  gap: var(--space-xl);
+  align-items: start;
+}
+
+@media (max-width: 991px) {
+  .pk-checkout-layout {
+    grid-template-columns: 1fr;
+  }
+  .pk-checkout-summary {
+    order: -1;
+  }
+}
+
+.pk-checkout-form h1 {
+  font-family: var(--font-heading);
+  font-size: 1.75rem;
+  margin-bottom: var(--space-xl);
+}
+
+.pk-checkout-form .ant-btn-primary {
+  background: var(--pk-accent);
+  border-color: var(--pk-accent);
+  margin-top: var(--space-lg);
+}
+
+.pk-checkout-form .ant-btn-primary:hover {
+  background: var(--pk-accent-hover);
+  border-color: var(--pk-accent-hover);
+}
+
+.pk-summary-item {
+  display: flex;
+  justify-content: space-between;
+  padding: var(--space-sm) 0;
+  font-size: 14px;
+  border-bottom: 1px solid var(--pk-gray100);
+}
+
+.pk-summary-item span {
+  color: var(--pk-gray700);
+}
+
+.pk-summary-totals {
+  margin-top: var(--space-md);
+  padding-top: var(--space-md);
+}
+
+.pk-summary-row {
+  display: flex;
+  justify-content: space-between;
+  padding: var(--space-xs) 0;
+  font-size: 14px;
+}
+
+.pk-summary-row.pk-total {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-top: var(--space-md);
+  padding-top: var(--space-md);
+  border-top: 1px solid var(--pk-gray100);
+}
+
+.pk-checkout-confirmation {
+  padding: var(--space-xxl) 0;
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pk-confirmation-card {
+  text-align: center;
+  max-width: 480px;
+  width: 100%;
+}
+
+.pk-confirmation-icon {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto var(--space-lg);
+  background: #2D5A27;
+  color: white;
+  font-size: 2.5rem;
+  font-weight: bold;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pk-confirmation-card h1 {
+  font-family: var(--font-heading);
+  margin-bottom: var(--space-sm);
+}
+
+.pk-order-id {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--pk-deep-brown);
+  margin-bottom: var(--space-md);
+}
+
+.pk-confirmation-card .ant-btn-primary {
+  background: #25D366;
+  border-color: #25D366;
+}

@@ -1,0 +1,38 @@
+.pk-admin-dashboard h1 {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  margin-bottom: var(--space-xl);
+}
+
+.pk-stat-card {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.pk-stat-icon {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--pk-sand-beige);
+  border-radius: var(--radius-sm);
+  font-size: 24px;
+  color: var(--pk-deep-brown);
+}
+
+.pk-stat-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.pk-stat-value {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.pk-stat-title {
+  font-size: 13px;
+  color: var(--pk-gray500);
+}

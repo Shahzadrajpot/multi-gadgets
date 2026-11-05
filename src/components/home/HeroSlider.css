@@ -1,0 +1,425 @@
+/* MultiGadgets - Modern 3D Horizontal Sliding Hero Carousel */
+
+.mg-hero-slider {
+  position: relative;
+  background: radial-gradient(circle at 75% 40%, #1a1e29 0%, #0d0f14 60%, #060709 100%);
+  color: #ffffff;
+  overflow: hidden;
+  min-height: 580px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  user-select: none;
+}
+
+/* Ambient Background Glow */
+.mg-hero-bg-glow {
+  position: absolute;
+  right: 10%;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 550px;
+  height: 550px;
+  border-radius: 50%;
+  filter: blur(120px);
+  pointer-events: none;
+  opacity: 0.6;
+  transition: background 0.8s ease;
+  z-index: 1;
+}
+
+/* Grid overlay for futuristic tech feel */
+.mg-hero-grid-pattern {
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Viewport & Horizontal Sliding Track */
+.mg-hero-viewport {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  overflow: hidden;
+}
+
+.mg-hero-track {
+  display: flex;
+  width: 100%;
+  transition: transform 1.5s cubic-bezier(0.25, 1, 0.5, 1);
+  will-change: transform;
+}
+
+.mg-hero-slide-item {
+  min-width: 100%;
+  width: 100%;
+  flex-shrink: 0;
+  padding: 56px 0 64px 0;
+  box-sizing: border-box;
+}
+
+.mg-hero-slide-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 48px;
+}
+
+/* Slide Content Column */
+.mg-hero-text-col {
+  flex: 1;
+  max-width: 580px;
+}
+
+.mg-hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  backdrop-filter: blur(12px);
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: #38bdf8;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+.mg-hero-badge-dot {
+  width: 8px;
+  height: 8px;
+  background: #38bdf8;
+  border-radius: 50%;
+  box-shadow: 0 0 10px #38bdf8;
+  animation: mg-pulse-dot 2s infinite ease-in-out;
+}
+
+@keyframes mg-pulse-dot {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.4);
+    opacity: 0.6;
+  }
+}
+
+.mg-hero-title {
+  font-family: var(--font-body, 'Inter', system-ui, sans-serif);
+  font-size: clamp(2.2rem, 4.5vw, 3.8rem);
+  font-weight: 800;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+  margin-bottom: 16px;
+}
+
+.mg-hero-subtitle {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.72);
+  margin-bottom: 28px;
+  max-width: 520px;
+}
+
+/* Feature Spec Chips */
+.mg-hero-specs {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 32px;
+}
+
+.mg-hero-spec-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.85);
+  font-weight: 500;
+}
+
+/* Call To Action Buttons */
+.mg-hero-actions {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-bottom: 28px;
+}
+
+.mg-hero-btn-primary {
+  height: 52px;
+  padding: 0 32px;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+  border: none;
+  color: #ffffff;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 8px 24px rgba(2, 132, 199, 0.35);
+  transition: all 0.25s ease;
+}
+
+.mg-hero-btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(2, 132, 199, 0.5);
+  color: #ffffff !important;
+}
+
+.mg-hero-btn-secondary {
+  height: 52px;
+  padding: 0 28px;
+  font-size: 15px;
+  font-weight: 600;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  display: inline-flex;
+  align-items: center;
+  transition: all 0.25s ease;
+}
+
+.mg-hero-btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.4);
+  color: #ffffff !important;
+  transform: translateY(-2px);
+}
+
+.mg-hero-trust-bar {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.mg-hero-trust-bar span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* 3D Product Presentation Column */
+.mg-hero-visual-col {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.mg-hero-3d-card {
+  position: relative;
+  width: 100%;
+  max-width: 460px;
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 3D Floating Animation */
+@keyframes mg-float-3d {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-14px) rotate(1.2deg);
+  }
+}
+
+.mg-hero-product-img-wrap {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: mg-float-3d 5s ease-in-out infinite;
+}
+
+.mg-hero-product-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 24px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6), 0 0 40px rgba(2, 132, 199, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  transition: transform 0.4s ease;
+}
+
+.mg-hero-3d-tag {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  padding: 8px 16px;
+  background: rgba(13, 15, 20, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(16px);
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #38bdf8;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+  z-index: 3;
+}
+
+/* Modern Minimalist Navigation Dots */
+.mg-hero-controls {
+  position: relative;
+  z-index: 4;
+  padding-bottom: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.mg-hero-dots {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 14px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(12px);
+  border-radius: 999px;
+}
+
+.mg-hero-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.3);
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: all 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.mg-hero-dot:hover:not(.active) {
+  background: rgba(255, 255, 255, 0.6);
+  transform: scale(1.15);
+}
+
+.mg-hero-dot.active {
+  width: 26px;
+  background: #38bdf8;
+  box-shadow: 0 0 10px rgba(56, 189, 248, 0.6);
+}
+
+/* Arrow controls */
+.mg-hero-arrow-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 5;
+  transition: all 0.2s ease;
+  backdrop-filter: blur(8px);
+}
+
+.mg-hero-arrow-btn:hover {
+  background: rgba(255, 255, 255, 0.22);
+  border-color: rgba(255, 255, 255, 0.4);
+  transform: translateY(-50%) scale(1.08);
+}
+
+.mg-hero-arrow-prev {
+  left: 24px;
+}
+
+.mg-hero-arrow-next {
+  right: 24px;
+}
+
+/* Mobile & Tablet Responsiveness */
+@media (max-width: 991px) {
+  .mg-hero-slide-content {
+    flex-direction: column-reverse;
+    text-align: center;
+    gap: 36px;
+  }
+
+  .mg-hero-text-col {
+    max-width: 100%;
+  }
+
+  .mg-hero-subtitle {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .mg-hero-specs,
+  .mg-hero-actions,
+  .mg-hero-trust-bar {
+    justify-content: center;
+  }
+
+  .mg-hero-3d-card {
+    max-width: 320px;
+  }
+
+  .mg-hero-arrow-btn {
+    display: none;
+  }
+}
+
+@media (max-width: 576px) {
+  .mg-hero-slider {
+    min-height: auto;
+  }
+
+  .mg-hero-slide-item {
+    padding: 36px 0 44px 0;
+  }
+
+  .mg-hero-title {
+    font-size: 2.1rem;
+  }
+
+  .mg-hero-actions {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .mg-hero-btn-primary,
+  .mg-hero-btn-secondary {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .mg-hero-3d-card {
+    max-width: 260px;
+  }
+}

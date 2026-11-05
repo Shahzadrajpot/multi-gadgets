@@ -1,0 +1,128 @@
+.pk-cart-page {
+  padding: var(--space-xl) 0;
+  min-height: 60vh;
+}
+
+.pk-cart-layout {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: var(--space-xl);
+  align-items: start;
+}
+
+@media (max-width: 991px) {
+  .pk-cart-layout {
+    grid-template-columns: 1fr;
+  }
+  .pk-cart-summary {
+    order: -1;
+  }
+}
+
+.pk-cart-items h1 {
+  font-family: var(--font-heading);
+  font-size: 1.75rem;
+  margin-bottom: var(--space-xl);
+}
+
+.pk-cart-item {
+  margin-bottom: var(--space-md);
+  border-radius: var(--radius-lg);
+}
+
+.pk-cart-item-content {
+  display: flex;
+  gap: var(--space-lg);
+  align-items: center;
+}
+
+.pk-cart-item-image {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: var(--radius-sm);
+}
+
+.pk-cart-item-details {
+  flex: 1;
+}
+
+.pk-cart-item-name {
+  font-weight: 500;
+  font-size: 16px;
+  display: block;
+  margin-bottom: var(--space-xs);
+}
+
+.pk-cart-item-name:hover {
+  color: var(--pk-deep-brown);
+}
+
+.pk-cart-item-size {
+  font-size: 14px;
+  color: var(--pk-gray500);
+  margin: 0 0 var(--space-xs);
+}
+
+.pk-cart-item-price {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.pk-cart-item-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.pk-cart-summary h3 {
+  font-size: 1.125rem;
+  margin-bottom: var(--space-lg);
+}
+
+.pk-summary-row {
+  display: flex;
+  justify-content: space-between;
+  padding: var(--space-sm) 0;
+  font-size: 14px;
+}
+
+.pk-summary-row.pk-discount {
+  color: #2D5A27;
+}
+
+.pk-summary-row.pk-total {
+  font-size: 1.25rem;
+  font-weight: 700;
+  padding-top: var(--space-md);
+  margin-top: var(--space-md);
+  border-top: 1px solid var(--pk-gray100);
+}
+
+.pk-cart-summary .ant-btn {
+  margin-top: var(--space-lg);
+}
+
+.pk-cart-summary .ant-btn-primary {
+  background: var(--pk-accent);
+  border-color: var(--pk-accent);
+}
+
+.pk-cart-summary .ant-btn-primary:hover {
+  background: var(--pk-accent-hover);
+  border-color: var(--pk-accent-hover);
+}
+
+.pk-cart-empty {
+  text-align: center;
+  padding: var(--space-xxl);
+}
+
+.pk-cart-empty h2 {
+  margin-bottom: var(--space-md);
+}
+
+.pk-cart-empty p {
+  margin-bottom: var(--space-xl);
+  color: var(--pk-gray700);
+}

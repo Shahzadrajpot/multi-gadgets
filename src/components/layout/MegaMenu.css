@@ -1,0 +1,365 @@
+/* Multi Gadgets - MegaMenu Styles */
+
+.mg-mega-menu {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex: 1;
+  justify-content: center;
+}
+
+.mg-nav-item {
+  position: relative;
+}
+
+.mg-nav-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14.5px;
+  font-weight: 500;
+  color: #1e293b;
+  padding: 8px 14px;
+  border-radius: 8px;
+  text-decoration: none;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.mg-nav-link:hover {
+  color: #0284c7;
+  background: #f1f5f9;
+}
+
+.mg-nav-link.active {
+  color: #0284c7;
+  background: #e0f2fe;
+  font-weight: 600;
+}
+
+/* Deals Link Highlight */
+.mg-nav-link-deals {
+  color: #ea580c;
+}
+
+.mg-nav-link-deals:hover {
+  color: #c2410c;
+  background: #fff7ed;
+}
+
+.mg-nav-link-deals.active {
+  color: #c2410c;
+  background: #ffedd5;
+}
+
+.mg-deals-icon {
+  font-size: 15px;
+  color: #f97316;
+  animation: pulseFire 2s infinite ease-in-out;
+}
+
+@keyframes pulseFire {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.15);
+  }
+}
+
+/* Dropdown Trigger & Chevron */
+.mg-dropdown-trigger {
+  position: relative;
+}
+
+.mg-dropdown-btn {
+  user-select: none;
+}
+
+.mg-chevron {
+  font-size: 11px;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  color: #64748b;
+}
+
+.mg-chevron.open {
+  transform: rotate(180deg);
+  color: #0284c7;
+}
+
+/* Dropdown Mega Panel */
+.mg-dropdown-panel {
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%) translateY(8px);
+  width: 540px;
+  background: #ffffff;
+  border: 1px solid rgba(226, 232, 240, 0.9);
+  border-radius: 16px;
+  box-shadow: 0 20px 35px -10px rgba(15, 23, 42, 0.12), 0 0 0 1px rgba(15, 23, 42, 0.04);
+  padding: 18px;
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+  transition: opacity 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+              visibility 0.2s;
+  z-index: 1050;
+}
+
+/* Invisible bridge so mouse does not disconnect between trigger and panel */
+.mg-dropdown-panel::before {
+  content: '';
+  position: absolute;
+  top: -14px;
+  left: 0;
+  right: 0;
+  height: 14px;
+}
+
+.mg-dropdown-panel.visible {
+  opacity: 1;
+  pointer-events: auto;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* Dropdown Header */
+.mg-dropdown-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 12px;
+  margin-bottom: 14px;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.mg-dropdown-header-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #64748b;
+}
+
+.mg-dropdown-header-title .anticon {
+  color: #0284c7;
+  font-size: 14px;
+}
+
+.mg-dropdown-view-all {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #0284c7;
+  text-decoration: none;
+  transition: gap 0.2s ease;
+}
+
+.mg-dropdown-view-all:hover {
+  gap: 7px;
+  color: #0369a1;
+}
+
+/* Category Grid */
+.mg-dropdown-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.mg-category-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  background: #f8fafc;
+  border: 1px solid #f1f5f9;
+  border-radius: 12px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.mg-category-card:hover {
+  background: #ffffff;
+  border-color: #cbd5e1;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.06);
+  transform: translateY(-1px);
+}
+
+.mg-category-thumb {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #e2e8f0;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mg-category-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.mg-category-card:hover .mg-category-thumb img {
+  transform: scale(1.1);
+}
+
+.mg-category-thumb-fallback {
+  color: #94a3b8;
+  font-size: 18px;
+}
+
+.mg-category-info {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+}
+
+.mg-category-name {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: #0f172a;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: color 0.2s ease;
+}
+
+.mg-category-card:hover .mg-category-name {
+  color: #0284c7;
+}
+
+.mg-category-count {
+  font-size: 12px;
+  color: #64748b;
+  margin-top: 2px;
+}
+
+.mg-category-arrow {
+  font-size: 11px;
+  color: #94a3b8;
+  transition: all 0.2s ease;
+  transform: translateX(0);
+}
+
+.mg-category-card:hover .mg-category-arrow {
+  color: #0284c7;
+  transform: translateX(3px);
+}
+
+.mg-category-empty {
+  grid-column: span 2;
+  text-align: center;
+  padding: 24px;
+  color: #94a3b8;
+  font-size: 13px;
+}
+
+/* Dropdown Footer */
+.mg-dropdown-footer {
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid #f1f5f9;
+  text-align: center;
+}
+
+.mg-dropdown-footer-link {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #475569;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.mg-dropdown-footer-link:hover {
+  color: #0284c7;
+}
+
+/* Mobile Navigation Drawer Styles */
+.mg-mobile-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.mg-mobile-link {
+  display: flex;
+  align-items: center;
+  padding: 12px 14px;
+  font-size: 15px;
+  font-weight: 500;
+  color: #1e293b;
+  text-decoration: none;
+  border-radius: 10px;
+  transition: all 0.2s ease;
+}
+
+.mg-mobile-link:hover {
+  background: #f1f5f9;
+  color: #0284c7;
+}
+
+.mg-mobile-link-deals {
+  color: #ea580c;
+  font-weight: 600;
+}
+
+.mg-mobile-section-title {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #94a3b8;
+  padding: 16px 14px 6px;
+  text-transform: uppercase;
+}
+
+.mg-mobile-categories-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.mg-mobile-category-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #334155;
+  text-decoration: none;
+  border-radius: 8px;
+  background: #f8fafc;
+  transition: all 0.2s ease;
+}
+
+.mg-mobile-category-item:hover {
+  background: #f1f5f9;
+  color: #0284c7;
+}
+
+.mg-mobile-cat-badge {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 20px;
+  background: #e2e8f0;
+  color: #475569;
+}
+

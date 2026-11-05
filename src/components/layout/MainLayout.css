@@ -1,0 +1,11 @@
+.pk-main-layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.pk-content {
+  flex: 1;
+  min-height: 400px;
+  background: var(--pk-sand-light);
+}

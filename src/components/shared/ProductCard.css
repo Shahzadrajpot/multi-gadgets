@@ -1,0 +1,111 @@
+.pk-product-card {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: all var(--transition-normal);
+}
+
+.pk-product-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(13, 13, 13, 0.12);
+}
+
+.pk-product-card .ant-card-body {
+  padding: var(--space-md);
+}
+
+.pk-product-card-image-wrap {
+  position: relative;
+  display: block;
+  aspect-ratio: 1;
+  overflow: hidden;
+}
+
+.pk-product-card-image-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-slow);
+}
+
+.pk-product-card:hover .pk-product-card-image-wrap img {
+  transform: scale(1.05);
+}
+
+.pk-product-card-badge {
+  position: absolute;
+  top: var(--space-sm);
+  left: var(--space-sm);
+  z-index: 2;
+}
+
+.pk-stock-badge {
+  background: #B8860B !important;
+  border: none;
+}
+
+.pk-out-of-stock {
+  background: #8B2E2E !important;
+  border: none;
+}
+
+.pk-product-card-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(13, 13, 13, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity var(--transition-normal);
+}
+
+.pk-product-card:hover .pk-product-card-overlay {
+  opacity: 1;
+}
+
+.pk-product-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.pk-product-card-category {
+  font-size: 12px;
+  color: var(--pk-brown);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.pk-product-card-name {
+  font-weight: 500;
+  font-size: 16px;
+  color: var(--pk-black);
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.pk-product-card-name:hover {
+  color: var(--pk-deep-brown);
+}
+
+.pk-product-card-price {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-sm);
+  margin-top: var(--space-xs);
+}
+
+.pk-price-original {
+  font-size: 14px;
+  color: var(--pk-gray500);
+  text-decoration: line-through;
+}
+
+.pk-price-final {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--pk-deep-brown);
+}

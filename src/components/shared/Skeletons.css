@@ -1,0 +1,273 @@
+/* Multi Gadgets - Pure CSS Skeleton Loading System */
+/* High Performance Shimmer Animation (GPU-accelerated, 0ms JS overhead) */
+
+@keyframes mg-shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.mg-skeleton-bone {
+  background: linear-gradient(
+    90deg,
+    rgba(224, 227, 232, 0.8) 0%,
+    rgba(242, 244, 247, 0.95) 50%,
+    rgba(224, 227, 232, 0.8) 100%
+  );
+  background-size: 200% 100%;
+  animation: mg-shimmer 1.6s infinite ease-in-out;
+  border-radius: var(--radius-sm, 6px);
+  display: block;
+}
+
+/* Product Card Skeleton */
+.mg-product-card-skeleton {
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: var(--radius-lg, 12px);
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.mg-product-card-skeleton-image {
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 0;
+}
+
+.mg-product-card-skeleton-body {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+}
+
+.mg-product-card-skeleton-cat {
+  width: 35%;
+  height: 12px;
+}
+
+.mg-product-card-skeleton-title {
+  width: 85%;
+  height: 16px;
+}
+
+.mg-product-card-skeleton-title-sub {
+  width: 55%;
+  height: 16px;
+}
+
+.mg-product-card-skeleton-price {
+  width: 45%;
+  height: 22px;
+  margin-top: 4px;
+}
+
+/* Category Card Skeleton */
+.mg-category-card-skeleton {
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: var(--radius-lg, 12px);
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+.mg-category-card-skeleton-img {
+  width: 100%;
+  height: 200px;
+  border-radius: var(--radius-md, 8px);
+}
+
+.mg-category-card-skeleton-title {
+  width: 50%;
+  height: 20px;
+}
+
+.mg-category-card-skeleton-count {
+  width: 30%;
+  height: 14px;
+}
+
+/* Single Product Detail Page Skeleton */
+.mg-product-page-skeleton {
+  padding-top: 32px;
+  padding-bottom: 64px;
+}
+
+.mg-product-page-skeleton-hero {
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: var(--radius-lg, 12px);
+}
+
+.mg-product-page-skeleton-thumbs {
+  display: flex;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.mg-product-page-skeleton-thumb {
+  width: 72px;
+  height: 72px;
+  border-radius: var(--radius-sm, 8px);
+  flex-shrink: 0;
+}
+
+.mg-product-page-skeleton-info {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.mg-product-page-skeleton-breadcrumb {
+  width: 25%;
+  height: 14px;
+}
+
+.mg-product-page-skeleton-heading {
+  width: 75%;
+  height: 36px;
+}
+
+.mg-product-page-skeleton-meta {
+  width: 35%;
+  height: 18px;
+}
+
+.mg-product-page-skeleton-price-block {
+  width: 45%;
+  height: 32px;
+}
+
+.mg-product-page-skeleton-chips-label {
+  width: 30%;
+  height: 16px;
+  margin-top: 8px;
+}
+
+.mg-product-page-skeleton-chips {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.mg-product-page-skeleton-chip {
+  width: 80px;
+  height: 36px;
+  border-radius: 6px;
+}
+
+.mg-product-page-skeleton-btn {
+  width: 100%;
+  height: 48px;
+  border-radius: 8px;
+}
+
+.mg-product-page-skeleton-desc-line {
+  width: 100%;
+  height: 14px;
+}
+
+/* Full Page Fallback Skeleton (for App Router Suspense) */
+.mg-page-skeleton {
+  min-height: 80vh;
+  padding: 32px 0 64px 0;
+}
+
+.mg-page-skeleton-banner {
+  width: 100%;
+  height: 260px;
+  border-radius: var(--radius-lg, 12px);
+  margin-bottom: 40px;
+}
+
+.mg-page-skeleton-heading {
+  width: 240px;
+  height: 28px;
+  margin-bottom: 24px;
+}
+
+/* Admin Dashboard Skeleton */
+.mg-admin-dashboard-skeleton {
+  padding-bottom: 32px;
+}
+
+.mg-admin-title-skeleton {
+  width: 220px;
+  height: 32px;
+  margin-bottom: 24px;
+}
+
+.mg-admin-stat-skeleton-card {
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: var(--radius-lg, 12px);
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+}
+
+.mg-admin-stat-skeleton-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-sm, 8px);
+  flex-shrink: 0;
+}
+
+.mg-admin-stat-skeleton-content {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+}
+
+.mg-admin-stat-skeleton-val {
+  width: 55%;
+  height: 24px;
+}
+
+.mg-admin-stat-skeleton-label {
+  width: 85%;
+  height: 12px;
+}
+
+.mg-admin-table-skeleton-card {
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: var(--radius-lg, 12px);
+  padding: 24px;
+  margin-top: 24px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+}
+
+.mg-admin-table-skeleton-header {
+  width: 140px;
+  height: 20px;
+  margin-bottom: 20px;
+}
+
+.mg-admin-table-skeleton-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+.mg-admin-table-skeleton-cell {
+  height: 16px;
+}
+

@@ -1,0 +1,22 @@
+# Multi Gadgets Robots.txt
+# Controls search engine crawler discovery
+
+User-agent: *
+Allow: /
+Allow: /shop
+Allow: /product/*
+Allow: /about
+Allow: /contact
+Allow: /shipping
+Allow: /returns
+Allow: /privacy
+
+# Disallow private user states and admin backoffice
+Disallow: /admin/
+Disallow: /admin
+Disallow: /cart
+Disallow: /checkout
+Disallow: /account
+
+# Sitemap location
+Sitemap: https://multigadgets.pk/sitemap.xml
