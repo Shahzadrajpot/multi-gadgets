@@ -32,6 +32,12 @@ export default function ProductPage() {
       .finally(() => setLoading(false));
   }, [slug]);
 
+   useEffect(() => {
+    if (product) {
+      document.title = `${product.name} | Multi Gadgets`;
+    }
+  }, [product]);
+
   if (loading) {
     return <ProductPageSkeleton />;
   }
@@ -55,11 +61,7 @@ export default function ProductPage() {
     product.categoryId
   );
 
-  useEffect(() => {
-    if (product) {
-      document.title = `${product.name} | Multi Gadgets`;
-    }
-  }, [product]);
+ 
 
   const category = categories.find((c) => c.id === product.categoryId);
 
