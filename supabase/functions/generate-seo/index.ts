@@ -1,21 +1,18 @@
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 import { createClient } from "jsr:@supabase/supabase-js@2";
 
-// Strict CORS Whitelist for MultiGadgets
-const ALLOWED_ORIGINS = [
-  'https://multi-gadgets.vercel.app',
-  'http://localhost:5173',
-  'http://localhost:3000',
-  'http://127.0.0.1:5173',
-];
-
+// Dynamic, foolproof CORS headers reflecting caller origin and requested headers
 function getCorsHeaders(req: Request) {
-  const origin = req.headers.get('Origin') || '';
-  const isAllowed = ALLOWED_ORIGINS.includes(origin);
+  const origin = req.headers.get('origin') || req.headers.get('Origin') || '*';
+  const requestHeaders =
+    req.headers.get('access-control-request-headers') ||
+    'authorization, x-client-info, apikey, content-type, Authorization, X-Client-Info, ApiKey, Content-Type, *';
+
   return {
-    'Access-Control-Allow-Origin': isAllowed ? origin : ALLOWED_ORIGINS[0],
+    'Access-Control-Allow-Origin': origin,
     'Access-Control-Allow-Methods': 'POST, OPTIONS',
-    'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+    'Access-Control-Allow-Headers': requestHeaders,
+    'Access-Control-Max-Age': '86400',
   };
 }
 
@@ -44,10 +41,10 @@ Deno.serve(async (req) => {
 
   try {
     // 3. Strict Authentication Header Check
-    const authHeader = req.headers.get('Authorization');
+    const authHeader = req.headers.get('Authorization') || req.headers.get('authorization');
     if (!authHeader) {
       return new Response(
-        JSON.stringify({ error: 'Unauthorized: Missing Authorization header' }),
+        JSON.stringify({ error: 'Unauthorized: Missing Authorization header. Please log in.' }),
         { status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
@@ -85,7 +82,7 @@ Deno.serve(async (req) => {
 
     if (userError || !user) {
       return new Response(
-        JSON.stringify({ error: 'Unauthorized: Invalid or expired session token. Please log in again.' }),
+        JSON.stringify({ error: 'Unauthorized: Invalid or expired session token. Please log into the Admin portal.' }),
         { status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
@@ -107,7 +104,7 @@ Deno.serve(async (req) => {
 
     if (!adminRecord) {
       return new Response(
-        JSON.stringify({ error: 'Forbidden: Admin privileges required to generate AI SEO content' }),
+        JSON.stringify({ error: 'Forbidden: Admin privileges required. Your account is not listed in admin_users.' }),
         { status: 403, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }

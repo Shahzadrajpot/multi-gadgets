@@ -30,26 +30,45 @@ export interface ProductSeoSuggestion {
  */
 export async function generateProductSeo(input: ProductSeoInput): Promise<ProductSeoSuggestion> {
   try {
+    // 1. Check for active Supabase session
+    const { data: sessionData } = await supabase.auth.getSession();
+    const session = sessionData?.session;
+
+    const headers: Record<string, string> = {};
+    if (session?.access_token) {
+      headers['Authorization'] = `Bearer ${session.access_token}`;
+    }
+
+    // 2. Invoke Edge Function
     const { data, error } = await supabase.functions.invoke('generate-seo', {
       body: input,
+      headers,
     });
 
     if (error) {
-      let errorMsg = error.message;
+      let errorMsg = error.message || 'Edge Function call failed';
+
       // Extract detailed server error message if available in error context
       try {
-        if ('context' in error && error.context && typeof (error.context as Response).json === 'function') {
-          const body = await (error.context as Response).json();
-          if (body?.error) errorMsg = body.error;
+        if ('context' in error && error.context) {
+          const ctx = error.context as Response;
+          if (typeof ctx.json === 'function') {
+            const body = await ctx.json();
+            if (body?.error) errorMsg = body.error;
+          } else if (typeof (ctx as any).text === 'function') {
+            const text = await (ctx as any).text();
+            if (text) errorMsg = text;
+          }
         }
       } catch {
-        // Fall back to original error.message if context is unreadable
+        // Fall back to original error message
       }
+
       console.warn('Supabase Edge Function returned an error, using intelligent fallback:', errorMsg);
       return generateFallbackSeo(input, errorMsg);
     }
 
-    // Defensive schema validation of server payload
+    // 3. Defensive schema validation of server payload
     if (
       !data ||
       typeof data !== 'object' ||
