@@ -129,13 +129,18 @@ Deno.serve(async (req) => {
       );
     }
 
-    // 5. Retrieve Gemini API Key from Supabase Edge Function Secrets
-    const apiKey = Deno.env.get('GEMINI_API_KEY');
+    // 5. Retrieve Gemini API Key from Supabase Edge Function Secrets (defensive against naming variations)
+    const apiKey =
+      Deno.env.get('GEMINI_API_KEY') ||
+      Deno.env.get('Gemini API Key') ||
+      Deno.env.get('gemini_api_key') ||
+      Deno.env.get('GEMINI_KEY') ||
+      Deno.env.get('GEMINI_API');
 
     if (!apiKey) {
       return new Response(
         JSON.stringify({
-          error: 'GEMINI_API_KEY is not configured in Supabase Secrets. Please add it in Project Settings -> Edge Functions -> Secrets.',
+          error: 'GEMINI_API_KEY is not configured in Supabase Secrets. Please add it in Project Settings -> Edge Functions -> Secrets with name GEMINI_API_KEY.',
         }),
         { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
