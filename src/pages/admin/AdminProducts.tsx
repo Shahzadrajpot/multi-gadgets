@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { Table, Button, Space, Tag, Image, Modal, Form, Input, InputNumber, Select, Switch, Upload, message } from 'antd';
-import { PlusOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
+import { PlusOutlined, EditOutlined, DeleteOutlined, ThunderboltOutlined } from '@ant-design/icons';
+import { AiProductCopilotModal } from '../../components/admin/AiProductCopilotModal';
+import type { ProductSeoSuggestion } from '../../services/aiService';
 import { fetchAdminProducts, createProduct, updateProduct, deleteProduct } from '../../services/productService';
 import { fetchCategories } from '../../services/categoryService';
 import { mapProduct } from '../../utils/transform';
@@ -11,6 +13,7 @@ import { uploadProductImage } from '../../services/storageService';
 
 export default function AdminProducts() {
   const [modalOpen, setModalOpen] = useState(false);
+  const [copilotOpen, setCopilotOpen] = useState(false);
   const [editingProduct, setEditingProduct] = useState<Product | null>(null);
   const [products, setProducts] = useState<Product[]>([]);
   const [categories, setCategories] = useState<CategoryWithCount[]>([]);
@@ -107,11 +110,31 @@ export default function AdminProducts() {
       discount_value: product.discount?.value ?? 0,
       stock: product.stock,
       sku: product.sku,
+      description: product.description || '',
+      meta_title: product.metaTitle || '',
+      meta_description: product.metaDescription || '',
       is_featured: product.isFeatured,
       is_active: product.isActive,
       sizes: product.sizes.join(', '),
     });
     setModalOpen(true);
+  };
+
+  const handleApplyAiSuggestion = (suggestion: ProductSeoSuggestion) => {
+    form.setFieldsValue({
+      description: suggestion.description,
+      meta_title: suggestion.meta_title,
+      meta_description: suggestion.meta_description,
+      sizes: suggestion.suggested_variants || form.getFieldValue('sizes'),
+    });
+    if (!form.getFieldValue('slug') && suggestion.optimized_title) {
+      const autoSlug = suggestion.optimized_title
+        .toLowerCase()
+        .trim()
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/^-+|-+$/g, '');
+      form.setFieldsValue({ slug: autoSlug });
+    }
   };
 
   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -160,6 +183,9 @@ export default function AdminProducts() {
           discount_value: values.discount_value ?? 0,
           stock: values.stock,
           sku: values.sku,
+          description: values.description || null,
+          meta_title: values.meta_title || null,
+          meta_description: values.meta_description || null,
           is_featured: values.is_featured,
           is_active: values.is_active,
           sizes: sizeArray,
@@ -183,6 +209,9 @@ export default function AdminProducts() {
           discount_value: values.discount_value ?? 0,
           stock: values.stock,
           sku: values.sku,
+          description: values.description || null,
+          meta_title: values.meta_title || null,
+          meta_description: values.meta_description || null,
           is_featured: values.is_featured ?? false,
           is_active: values.is_active ?? true,
           sizes: sizeArray,
@@ -250,6 +279,65 @@ export default function AdminProducts() {
           </Form.Item>
           <Form.Item name="category_id" label="Category" rules={[{ required: true }]}>
             <Select options={categories.map((c) => ({ value: c.id, label: c.name }))} />
+          </Form.Item>
+
+          {/* AI SEO Copilot Trigger Box */}
+          <div
+            style={{
+              background: 'linear-gradient(135deg, rgba(2, 132, 199, 0.08) 0%, rgba(99, 102, 241, 0.08) 100%)',
+              border: '1px solid rgba(99, 102, 241, 0.25)',
+              padding: '12px 16px',
+              borderRadius: 10,
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              marginBottom: 20,
+              marginTop: 8,
+            }}
+          >
+            <div>
+              <div style={{ fontWeight: 600, color: '#0f172a', display: 'flex', alignItems: 'center', gap: 6 }}>
+                <ThunderboltOutlined style={{ color: '#6366f1' }} /> AI SEO Copilot
+              </div>
+              <div style={{ fontSize: 12, color: '#64748b', marginTop: 2 }}>
+                Auto-generate description, Google title, and meta tags with Gemini AI
+              </div>
+            </div>
+            <Button
+              type="primary"
+              icon={<ThunderboltOutlined />}
+              className="mg-ai-trigger-btn"
+              onClick={() => setCopilotOpen(true)}
+            >
+              Launch Copilot
+            </Button>
+          </div>
+
+          <Form.Item name="description" label="Product Description (SEO & Storytelling)">
+            <Input.TextArea
+              rows={4}
+              placeholder="Detailed description, standout benefits, and technical specifications..."
+            />
+          </Form.Item>
+
+          <Form.Item
+            name="meta_title"
+            label="Google SEO Meta Title"
+            extra="Under 60 characters for best Google search ranking."
+          >
+            <Input placeholder="e.g. Ultra S9 Pro Smartwatch | Multi Gadgets" maxLength={70} />
+          </Form.Item>
+
+          <Form.Item
+            name="meta_description"
+            label="Google SEO Meta Description"
+            extra="Under 155 characters for highest search click-through rate."
+          >
+            <Input.TextArea
+              rows={2}
+              placeholder="Buy Ultra S9 Pro Smartwatch in Pakistan with fast delivery..."
+              maxLength={170}
+            />
           </Form.Item>
           <Form.Item name="base_price" label="Base Price (Rs.)" rules={[{ required: true }]}>
             <InputNumber min={0} style={{ width: '100%' }} />
@@ -319,6 +407,14 @@ export default function AdminProducts() {
           </Form.Item>
         </Form>
       </Modal>
+
+      <AiProductCopilotModal
+        open={copilotOpen}
+        onClose={() => setCopilotOpen(false)}
+        initialProductName={form.getFieldValue('name') || ''}
+        categoryName={categories.find((c) => c.id === form.getFieldValue('category_id'))?.name}
+        onApply={handleApplyAiSuggestion}
+      />
     </div>
   );
 }
