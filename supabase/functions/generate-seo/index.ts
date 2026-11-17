@@ -173,34 +173,54 @@ You MUST respond strictly with a valid JSON object matching this schema without 
 }
 `;
 
-    // 6. Secure Server-to-Server request to Google Gemini API
-    const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`,
-      {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          contents: [{ parts: [{ text: prompt }] }],
-          generationConfig: {
-            temperature: 0.7,
-            topP: 0.95,
-            responseMimeType: 'application/json',
-          },
-        }),
-      }
-    );
+    // 6. Secure Server-to-Server request to Google Gemini API with automatic model failover
+    const candidateModels = [
+      'gemini-3.1-flash-lite',
+      'gemini-3.8-flash',
+      'gemini-3.5-flash',
+      'gemini-flash-latest',
+    ];
 
-    if (!response.ok) {
-      const errData = await response.json().catch(() => ({}));
-      const errorMsg = (errData as { error?: { message?: string } })?.error?.message || response.statusText;
-      throw new Error(`Gemini API Error: ${errorMsg}`);
+    let rawText = '';
+    let usedModel = candidateModels[0];
+    let lastError = '';
+
+    for (const model of candidateModels) {
+      try {
+        const response = await fetch(
+          `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`,
+          {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              contents: [{ parts: [{ text: prompt }] }],
+              generationConfig: {
+                temperature: 0.7,
+                topP: 0.95,
+                responseMimeType: 'application/json',
+              },
+            }),
+          }
+        );
+
+        if (response.ok) {
+          const data = await response.json();
+          rawText = data?.candidates?.[0]?.content?.parts?.[0]?.text || '';
+          if (rawText) {
+            usedModel = model;
+            break;
+          }
+        } else {
+          const errData = await response.json().catch(() => ({}));
+          lastError = (errData as { error?: { message?: string } })?.error?.message || response.statusText;
+        }
+      } catch (err) {
+        lastError = err instanceof Error ? err.message : 'Fetch failed';
+      }
     }
 
-    const data = await response.json();
-    const rawText = data?.candidates?.[0]?.content?.parts?.[0]?.text;
-
     if (!rawText) {
-      throw new Error('Received empty response from Gemini AI');
+      throw new Error(`Gemini API Error: ${lastError || 'All Gemini models unavailable'}`);
     }
 
     const cleanedText = rawText.replace(/```json/g, '').replace(/```/g, '').trim();
