@@ -80,7 +80,7 @@ export default function ShopPage() {
                   to={`/shop?category=${cat.slug}`}
                   className={categorySlug === cat.slug ? 'active' : ''}
                 >
-                  {cat.name} ({cat.productCount})
+                  {cat.name}
                 </Link>
               ))}
             </div>

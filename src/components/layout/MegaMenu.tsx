@@ -14,6 +14,8 @@ export default function MegaMenu({ categories }: MegaMenuProps) {
   const location = useLocation();
 
   const activeCategories = categories.filter((c) => c.isActive);
+  // Auto-switch: 1 column if <= 5 categories, 2 columns if > 5 categories
+  const isMultiColumn = activeCategories.length > 5;
 
   // Close dropdown on route change
   useEffect(() => {
@@ -74,9 +76,13 @@ export default function MegaMenu({ categories }: MegaMenuProps) {
           <DownOutlined className={`mg-chevron ${isOpen ? 'open' : ''}`} />
         </button>
 
-        {/* Dropdown Panel */}
-        <div className={`mg-dropdown-panel ${isOpen ? 'visible' : ''}`}>
-          <div className="mg-dropdown-list">
+        {/* Dropdown Panel with Dynamic 1 or 2 Columns */}
+        <div
+          className={`mg-dropdown-panel ${isOpen ? 'visible' : ''} ${
+            isMultiColumn ? 'multi-column' : 'single-column'
+          }`}
+        >
+          <div className={`mg-dropdown-list ${isMultiColumn ? 'two-cols' : 'one-col'}`}>
             {activeCategories.length > 0 ? (
               activeCategories.map((cat) => (
                 <Link
@@ -86,7 +92,6 @@ export default function MegaMenu({ categories }: MegaMenuProps) {
                   onClick={() => setIsOpen(false)}
                 >
                   <span className="mg-category-text-name">{cat.name}</span>
-                  <span className="mg-category-text-badge">{cat.productCount}</span>
                 </Link>
               ))
             ) : (

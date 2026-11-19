@@ -123,7 +123,6 @@ export default function Header() {
                 className="mg-mobile-category-item"
               >
                 <span>{cat.name}</span>
-                <span className="mg-mobile-cat-badge">{cat.productCount}</span>
               </Link>
             ))}
           </div>

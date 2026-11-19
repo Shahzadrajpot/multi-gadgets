@@ -175,11 +175,31 @@ export function AdminDashboardSkeleton() {
   );
 }
 
+/**
+ * Category Strip Skeleton - 1:1 match with CategoryStrip horizontal rail
+ */
+export function CategoryStripSkeleton({ count = 8 }: { count?: number }) {
+  const items = Array.from({ length: count });
+  return (
+    <div className="mg-category-strip-skeleton-wrapper" aria-hidden="true">
+      <div className="pk-container mg-category-strip-skeleton-container">
+        {items.map((_, i) => (
+          <div key={i} className="mg-category-strip-skeleton-item">
+            <div className="mg-skeleton-bone mg-category-strip-skeleton-img" />
+            <div className="mg-skeleton-bone mg-category-strip-skeleton-title" />
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 export default {
   ProductCardSkeleton,
   ProductGridSkeleton,
   CategoryCardSkeleton,
   CategoryGridSkeleton,
+  CategoryStripSkeleton,
   ProductPageSkeleton,
   PageSkeleton,
   AdminDashboardSkeleton,

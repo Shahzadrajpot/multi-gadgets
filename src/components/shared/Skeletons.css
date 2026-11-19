@@ -277,3 +277,43 @@
   height: 16px;
 }
 
+/* --------------------------------------------------------------------------
+   Category Strip Skeleton (Horizontal rail 1:1 match)
+   -------------------------------------------------------------------------- */
+.mg-category-strip-skeleton-wrapper {
+  background: #ffffff;
+  border-top: 1px solid #f1f5f9;
+  border-bottom: 1px solid #f1f5f9;
+  padding: 16px 0;
+  overflow: hidden;
+}
+
+.mg-category-strip-skeleton-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  overflow-x: hidden;
+}
+
+.mg-category-strip-skeleton-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  width: 96px;
+}
+
+.mg-category-strip-skeleton-img {
+  width: 68px;
+  height: 60px;
+  border-radius: 10px;
+}
+
+.mg-category-strip-skeleton-title {
+  width: 64px;
+  height: 13px;
+  border-radius: 4px;
+}
+

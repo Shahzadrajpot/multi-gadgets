@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Row, Col, Card, Alert, Image } from 'antd';
+import { Row, Col, Alert } from 'antd';
 import { TruckOutlined, SafetyOutlined, GiftOutlined, CheckCircleOutlined } from '@ant-design/icons';
 import ProductCard from '../components/shared/ProductCard';
-import { ProductGridSkeleton, CategoryGridSkeleton } from '../components/shared/Skeletons';
+import { ProductGridSkeleton } from '../components/shared/Skeletons';
 import { HeroSlider } from '../components/home/HeroSlider';
+import { CategoryStrip } from '../components/home/CategoryStrip';
 import { useApp } from '../context/AppContext';
 import { fetchFeaturedProducts } from '../services/productService';
 import { mapProduct } from '../utils/transform';
@@ -39,49 +39,14 @@ export default function HomePage() {
       {/* 3D MultiGadgets Hero Slider */}
       <HeroSlider />
 
+      {/* Horizontal Quick Category Rail (1:1 match with reference) */}
+      <CategoryStrip categories={categories} loading={loading} />
+
       {error && (
         <div className="pk-container">
           <Alert message={error} type="warning" showIcon style={{ marginTop: 16 }} />
         </div>
       )}
-
-      {/* Category Section */}
-      <section className="pk-section pk-categories">
-        <div className="pk-container">
-          <h2 className="pk-section-title">Shop by Category</h2>
-          {loading ? (
-            <CategoryGridSkeleton count={3} />
-          ) : categories.length > 0 ? (
-            <Row gutter={[24, 24]}>
-              {categories.map((cat) => (
-                <Col xs={24} sm={12} md={8} key={cat.id}>
-                  <Link to={cat.isActive ? `/shop?category=${cat.slug}` : '#'}>
-                    <Card className="pk-category-card" hoverable>
-                      {cat.image ? (
-                        <Image
-                          width="100%"
-                          height={200}
-                          src={cat.image}
-                          style={{ objectFit: 'cover', borderRadius: 8, marginBottom: 16 }}
-                          preview={false}
-                        />
-                      ) : (
-                        <div className="pk-category-placeholder">
-                          {cat.name.charAt(0)}
-                        </div>
-                      )}
-                      <h3>{cat.name}</h3>
-                      <p>{cat.productCount} products</p>
-                    </Card>
-                  </Link>
-                </Col>
-              ))}
-            </Row>
-          ) : (
-            <Alert message="No categories available yet" type="info" showIcon style={{ marginTop: 16 }} />
-          )}
-        </div>
-      </section>
 
       {/* Featured Products */}
       <section className="pk-section pk-featured">
