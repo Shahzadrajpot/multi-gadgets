@@ -32,6 +32,9 @@ export interface Product {
   isActive: boolean;
   metaTitle?: string;
   metaDescription?: string;
+  rating?: number;
+  reviewsCount?: number;
+  soldCount?: number;
   createdAt: string;
 }
 

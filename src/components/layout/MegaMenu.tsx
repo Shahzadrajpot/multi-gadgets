@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { DownOutlined, AppstoreOutlined, RightOutlined, FireOutlined } from '@ant-design/icons';
+import { DownOutlined, RightOutlined, FireOutlined } from '@ant-design/icons';
 import type { Category } from '../../types';
 import './MegaMenu.css';
 
@@ -54,7 +54,7 @@ export default function MegaMenu({ categories }: MegaMenuProps) {
         </Link>
       </div>
 
-      {/* Solution A: Professional Categories Dropdown */}
+      {/* Clean Text-Only Categories Dropdown */}
       <div
         className="mg-nav-item mg-dropdown-trigger"
         ref={dropdownRef}
@@ -74,42 +74,19 @@ export default function MegaMenu({ categories }: MegaMenuProps) {
           <DownOutlined className={`mg-chevron ${isOpen ? 'open' : ''}`} />
         </button>
 
-        {/* Dropdown Mega Panel */}
+        {/* Dropdown Panel */}
         <div className={`mg-dropdown-panel ${isOpen ? 'visible' : ''}`}>
-          <div className="mg-dropdown-header">
-            <div className="mg-dropdown-header-title">
-              <AppstoreOutlined />
-              <span>Explore Categories</span>
-            </div>
-            <Link to="/shop" className="mg-dropdown-view-all" onClick={() => setIsOpen(false)}>
-              <span>View All</span>
-              <RightOutlined />
-            </Link>
-          </div>
-
-          <div className="mg-dropdown-grid">
+          <div className="mg-dropdown-list">
             {activeCategories.length > 0 ? (
               activeCategories.map((cat) => (
                 <Link
                   key={cat.id}
                   to={`/shop?category=${cat.slug}`}
-                  className="mg-category-card"
+                  className="mg-category-text-item"
                   onClick={() => setIsOpen(false)}
                 >
-                  <div className="mg-category-thumb">
-                    {cat.image ? (
-                      <img src={cat.image} alt={cat.name} />
-                    ) : (
-                      <div className="mg-category-thumb-fallback">
-                        <AppstoreOutlined />
-                      </div>
-                    )}
-                  </div>
-                  <div className="mg-category-info">
-                    <span className="mg-category-name">{cat.name}</span>
-                    <span className="mg-category-count">{cat.productCount} products</span>
-                  </div>
-                  <RightOutlined className="mg-category-arrow" />
+                  <span className="mg-category-text-name">{cat.name}</span>
+                  <span className="mg-category-text-badge">{cat.productCount}</span>
                 </Link>
               ))
             ) : (
@@ -119,7 +96,8 @@ export default function MegaMenu({ categories }: MegaMenuProps) {
 
           <div className="mg-dropdown-footer">
             <Link to="/shop" className="mg-dropdown-footer-link" onClick={() => setIsOpen(false)}>
-              ⚡ Browse All Latest Tech & Gadgets ➔
+              <span>View All Categories</span>
+              <RightOutlined style={{ fontSize: 10 }} />
             </Link>
           </div>
         </div>

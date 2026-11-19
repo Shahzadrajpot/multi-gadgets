@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { Breadcrumb, Button, InputNumber, Select, Tag, Divider, message } from 'antd';
+import { Breadcrumb, Button, InputNumber, Tag, Divider, message } from 'antd';
 import { WhatsAppOutlined, ShoppingCartOutlined } from '@ant-design/icons';
 import { ProductPageSkeleton } from '../components/shared/Skeletons';
 import { useApp } from '../context/AppContext';
@@ -10,6 +10,25 @@ import { mapProduct } from '../utils/transform';
 import { calculateFinalPrice } from '../utils/discount';
 import type { Product } from '../types';
 import './ProductPage.css';
+
+/**
+ * Intelligent helper to resolve realistic hex preview colors for gadget finishes
+ */
+function getSwatchColorHex(name: string): string {
+  const lower = name.toLowerCase();
+  if (lower.includes('black') || lower.includes('dark') || lower.includes('midnight') || lower.includes('obsidian')) return '#18181b';
+  if (lower.includes('titanium') || lower.includes('gray') || lower.includes('grey') || lower.includes('space') || lower.includes('graphite')) return '#64748b';
+  if (lower.includes('silver') || lower.includes('chrome') || lower.includes('platinum')) return '#cbd5e1';
+  if (lower.includes('white') || lower.includes('pearl') || lower.includes('ivory')) return '#f8fafc';
+  if (lower.includes('orange') || lower.includes('amber') || lower.includes('trail')) return '#ea580c';
+  if (lower.includes('blue') || lower.includes('ocean') || lower.includes('sky')) return '#2563eb';
+  if (lower.includes('green') || lower.includes('olive') || lower.includes('mint')) return '#16a34a';
+  if (lower.includes('gold') || lower.includes('yellow') || lower.includes('champagne')) return '#d97706';
+  if (lower.includes('red') || lower.includes('crimson') || lower.includes('ruby')) return '#dc2626';
+  if (lower.includes('purple') || lower.includes('violet') || lower.includes('lavender')) return '#9333ea';
+  if (lower.includes('pink') || lower.includes('rose')) return '#ec4899';
+  return '#475569';
+}
 
 export default function ProductPage() {
   const { slug } = useParams();
@@ -32,7 +51,7 @@ export default function ProductPage() {
       .finally(() => setLoading(false));
   }, [slug]);
 
-   useEffect(() => {
+  useEffect(() => {
     if (product) {
       document.title = `${product.name} | Multi Gadgets`;
     }
@@ -61,14 +80,12 @@ export default function ProductPage() {
     product.categoryId
   );
 
- 
-
   const category = categories.find((c) => c.id === product.categoryId);
 
   const handleAddToCart = () => {
     // For gadgets, color / option is REQUIRED if options exist
     if (product.sizes.length > 0 && !selectedSize) {
-      message.error('Please select a color / option before adding to cart');
+      message.warning('Please select a color / option before adding to cart');
       return;
     }
     addToCart({
@@ -137,18 +154,42 @@ export default function ProductPage() {
               )}
             </div>
 
+            {/* Interactive Color / Option Swatches */}
             {product.sizes.length > 0 && (
-              <div className="pk-product-option">
-                <label><strong>Color / Option (Required)</strong></label>
-                <Select
-                  placeholder="Please select an option"
-                  value={selectedSize || undefined}
-                  onChange={setSelectedSize}
-                  options={product.sizes.map((s) => ({ value: s, label: s }))}
-                  style={{ width: '100%' }}
-                  size="large"
-                  status={!selectedSize ? 'warning' : undefined}
-                />
+              <div className="mg-product-swatches-section">
+                <div className="mg-swatch-header">
+                  <span className="mg-swatch-title">
+                    Color / Option:{' '}
+                    <strong className="mg-swatch-selected-name">
+                      {selectedSize || 'Choose Option'}
+                    </strong>
+                  </span>
+                  {!selectedSize && (
+                    <span className="mg-swatch-required-badge">* Required</span>
+                  )}
+                </div>
+
+                <div className="mg-swatches-grid" role="radiogroup" aria-label="Product color options">
+                  {product.sizes.map((sizeOption) => {
+                    const isSelected = selectedSize === sizeOption;
+                    const colorHex = getSwatchColorHex(sizeOption);
+
+                    return (
+                      <button
+                        key={sizeOption}
+                        type="button"
+                        className={`mg-swatch-chip ${isSelected ? 'active' : ''}`}
+                        onClick={() => setSelectedSize(sizeOption)}
+                        role="radio"
+                        aria-checked={isSelected}
+                      >
+                        <span className="mg-swatch-dot" style={{ backgroundColor: colorHex }} />
+                        <span className="mg-swatch-text">{sizeOption}</span>
+                        {isSelected && <span className="mg-swatch-check">✓</span>}
+                      </button>
+                    );
+                  })}
+                </div>
               </div>
             )}
 
@@ -170,22 +211,31 @@ export default function ProductPage() {
                 size="large"
                 icon={<ShoppingCartOutlined />}
                 onClick={handleAddToCart}
-                disabled={product.stock === 0 || (product.sizes.length > 0 && !selectedSize)}
+                className={`mg-btn-add-to-cart ${!selectedSize && product.sizes.length > 0 ? 'unselected' : ''}`}
+                disabled={product.stock === 0}
               >
-                Add to Cart
+                {!selectedSize && product.sizes.length > 0 ? 'Select Color to Add' : 'Add to Cart'}
               </Button>
-              <Link to="/checkout">
-                <Button size="large">Buy Now</Button>
+              <Link 
+                to="/checkout" 
+                onClick={(e) => {
+                  if (product.sizes.length > 0 && !selectedSize) {
+                    e.preventDefault();
+                    message.warning('Please select a color option before checkout');
+                  }
+                }}
+              >
+                <Button size="large" className="mg-btn-buy-now">Buy Now</Button>
               </Link>
               <a href={whatsappOrderUrl} target="_blank" rel="noopener noreferrer">
-                <Button size="large" icon={<WhatsAppOutlined />}>
+                <Button size="large" icon={<WhatsAppOutlined />} className="mg-btn-whatsapp">
                   WhatsApp Order
                 </Button>
               </a>
             </div>
 
             <div className="pk-product-delivery">
-              <p>Cash on Delivery available nationwide. Delivery within 3-5 business days.</p>
+              <p>Cash on Delivery available nationwide. Delivery within 3 business days.</p>
             </div>
 
             {product.description && (

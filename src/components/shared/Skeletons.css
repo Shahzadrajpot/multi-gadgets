@@ -49,25 +49,31 @@
   flex: 1;
 }
 
-.mg-product-card-skeleton-cat {
-  width: 35%;
-  height: 12px;
-}
-
 .mg-product-card-skeleton-title {
-  width: 85%;
+  width: 90%;
   height: 16px;
 }
 
 .mg-product-card-skeleton-title-sub {
-  width: 55%;
+  width: 60%;
   height: 16px;
+}
+
+.mg-product-card-skeleton-social {
+  width: 70%;
+  height: 13px;
 }
 
 .mg-product-card-skeleton-price {
   width: 45%;
-  height: 22px;
-  margin-top: 4px;
+  height: 20px;
+}
+
+.mg-product-card-skeleton-btn {
+  width: 100%;
+  height: 40px;
+  border-radius: 9px;
+  margin-top: auto;
 }
 
 /* Category Card Skeleton */

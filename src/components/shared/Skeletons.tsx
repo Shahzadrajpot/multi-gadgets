@@ -9,10 +9,11 @@ export function ProductCardSkeleton() {
     <div className="mg-product-card-skeleton" aria-hidden="true">
       <div className="mg-skeleton-bone mg-product-card-skeleton-image" />
       <div className="mg-product-card-skeleton-body">
-        <div className="mg-skeleton-bone mg-product-card-skeleton-cat" />
         <div className="mg-skeleton-bone mg-product-card-skeleton-title" />
         <div className="mg-skeleton-bone mg-product-card-skeleton-title-sub" />
+        <div className="mg-skeleton-bone mg-product-card-skeleton-social" />
         <div className="mg-skeleton-bone mg-product-card-skeleton-price" />
+        <div className="mg-skeleton-bone mg-product-card-skeleton-btn" />
       </div>
     </div>
   );
